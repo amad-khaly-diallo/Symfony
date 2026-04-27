@@ -1,0 +1,81 @@
+services:
+  app:
+    image: php:8.2-fpm
+    container_name: symfony_app
+    working_dir: /var/www/html
+    volumes:
+      - ./app:/var/www/html
+      - app_logs:/var/log/php
+      - app_cache:/var/www/html/var
+    networks:
+      - symfony_network
+
+  webserver:
+    image: nginx:stable
+    container_name: symfony_webserver
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+      - ./nginx:/etc/nginx/conf.d
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - app
+    networks:
+      - symfony_network
+
+  database:
+    image: mysql:8.0
+    container_name: symfony_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - symfony_network
+
+  adminer:
+    image: adminer
+    container_name: symfony_adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      - database
+    networks:
+      - symfony_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: symfony_phpmyadmin
+    restart: always
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: symfony_db
+      MYSQL_ROOT_PASSWORD: root
+      PMA_PMADB: phpmyadmin
+      PMA_CONTROLUSER: symfony
+      PMA_CONTROLPASS: symfony
+    depends_on:
+      - database
+    networks:
+      - symfony_network
+    volumes:
+      - phpmyadmin_data:/var/lib/phpmyadmin
+
+networks:
+  symfony_network:
+    driver: bridge
+
+volumes:
+  db_data:
+  phpmyadmin_data:
+  app_logs:
+  app_cache:
+  nginx_logs:
