@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+  {% block body %}
+      <div class="container mt-5 text-center">
+          <h1>Bienvenue sur MonSite</h1>
+          <p class="lead mt-3">
+              Une plateforme simple et efficace.
+          </p>
+          {% if not app.user %}
+              <a href="{{ path('app_login') }}" class="btn btn-primary mt-3">
+                Se connecter
+              </a>
+          {% else %}
+              <p class="mt-3">Bonjour <strong>{{ app.user.email }}</strong> !</p>
+          {% endif %}
+      </div>                               
+  {% endblock %}
