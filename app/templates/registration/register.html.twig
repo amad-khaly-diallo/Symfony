@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .auth-card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        padding: 2.5rem;
+        max-width: 450px;
+        margin: 5rem auto;
+    }
+
+    .auth-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #4f46e5;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e2e8f0;
+    }
+
+    .form-control:focus {
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        border: none;
+        border-radius: 10px;
+        padding: 0.75rem;
+        font-weight: 600;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #3730a3, #6d28d9);
+    }
+
+    .form-check-input:checked {
+        background-color: #4f46e5;
+        border-color: #4f46e5;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="auth-card">
+        <h1 class="auth-title text-center mb-4">
+            <i class="fas fa-user-plus me-2"></i>Inscription
+        </h1>
+
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle me-2"></i>{{ flash_error }}
+            </div>
+        {% endfor %}
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'exemple@email.com'}}) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': '8 caractères minimum'}}) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="mb-4">
+                <div class="form-check">
+                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(registrationForm.agreeTerms, "J'accepte les conditions d'utilisation", {'label_attr': {'class': 'form-check-label'}}) }}
+                    {{ form_errors(registrationForm.agreeTerms) }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-user-plus me-2"></i>Créer mon compte
+            </button>
+
+        {{ form_end(registrationForm) }}
+
+        <hr class="my-4">
+        <p class="text-center text-muted mb-0">
+            Déjà un compte ?
+            <a href="{{ path('app_login') }}" class="text-decoration-none fw-semibold">Se connecter</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
