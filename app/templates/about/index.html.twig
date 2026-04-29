@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}                                  
+  {% block title %}{{ titre }}{% endblock %}
+  {% block stylesheets %}             
+  <style>                                                   
+      .users-container {
+          max-width: 700px;
+          margin: 5rem auto;
+          background: white;                    
+          border-radius: 20px;
+          padding: 3rem;                       
+          box-shadow: 0 10px 40px rgba(0,0,0,0.1);  
+      }
+      
+      h1 {                                                  
+          color: #4f46e5;
+          font-weight: 800;                      
+          margin-bottom: 2rem;
+      }                                                 
+      .user-item {                     
+          padding: 1rem;
+          border-radius: 10px;                 
+          background: #f8fafc;                              
+          margin-bottom: 1rem;
+          display: flex;                   
+          align-items: center;
+          gap: 1rem;                           
+      }                                                     
+
+      .user-icon {
+          background: #4f46e5;
+          color: white;                          
+          width: 40px;
+          height: 40px;                       
+          border-radius: 50%;                               
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }                                                                                                                                
+  </style>
+  {% endblock %}                                                                                                                       
+                                                            
+  {% block body %}
+  <div class="container">
+      <div class="users-container">
+          <h1>{{ titre }}</h1>
+          {% for user in users %}         
+              <div class="user-item">                       
+                  <div class="user-icon">
+                      <i class="fas fa-user"></i>
+                  </div>                             
+                  <span>{{ user.email }}</span>
+              </div>                             
+          {% else %}                                        
+              <p class="text-muted">Aucun utilisateur trouvé.</p>
+          {% endfor %}                        
+      </div>
+  </div>                          
+  {% endblock %}
