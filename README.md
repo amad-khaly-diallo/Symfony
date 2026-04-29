@@ -335,3 +335,36 @@ volumes:
   nginx_logs:
 ```
 Déclare tous les volumes nommés utilisés par les services. Docker les gère et les persiste indépendamment du cycle de vie des conteneurs.
+
+---
+
+## Annexes — Captures d'écran
+
+Les captures d'écran sont stockées dans le dossier [`screenshot/`](./screenshot/).
+
+### Page d'accueil
+![Page d'accueil](./screenshot/home.png)
+
+### Page de connexion
+![Connexion](./screenshot/login.png)
+
+### Page d'inscription
+![Inscription](./screenshot/register.png)
+
+### Page administrateur
+![Admin](./screenshot/admin.png)
+
+### Page utilisateur
+![Utilisateur](./screenshot/espace_user.png)
+
+### Page liste des livres
+![Livres](./screenshot/livre_index.png)
+
+### Adminer — Base de données
+![Adminer](./screenshot/adminer.png)
+
+### phpMyAdmin — Base de données
+![phpMyAdmin](./screenshot/phpmyadmin.png)
+
+### Welcome Symfony
+![Welcome Symfony](./screenshot/welcome_symfony.png)
